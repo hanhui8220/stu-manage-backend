@@ -1,0 +1,19 @@
+server:
+  port: 8081
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/db_stu_man_sys?zeroDateTimeBehavior=convertToNull&characterEncoding=utf8&useSSL=false&serverTimezone=UTC
+    username: root
+    password: root
+
+mybatis-plus:
+  #classpath只会扫本项目，classpath*会把jar包里的xml文件也扫到
+  mapper-locations: classpath*:mapper/*/*.xml
+  #控制台打印sql语句
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+
+
