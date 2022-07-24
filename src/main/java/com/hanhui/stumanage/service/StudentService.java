@@ -10,6 +10,7 @@ import com.hanhui.stumanage.mapper.StudentMapper;
 import com.hanhui.stumanage.model.Student;
 import com.hanhui.stumanage.model.User;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -28,7 +29,7 @@ public class StudentService {
         queryWrapper.eq("stu_number",student.getStuNumber());
         StudentEntity entity = studentDao.selectOne(queryWrapper);
         if(entity != null ){
-            throw GenricException.generateStuNumberErrot();
+            throw GenricException.generateStuNumberError();
         }
         StudentEntity studentEntity = StudentMapper.INSTANCE.fromModel(student);
         int i = studentDao.insert(studentEntity);
@@ -56,7 +57,7 @@ public class StudentService {
         List<StudentEntity> selectList = studentDao.selectList(queryWrapper);
         if(selectList != null ){
             if(selectList.size() > 1){
-                throw GenricException.generateStuNumberErrot();
+                throw GenricException.generateStuNumberError();
             }
         }
         int updateById = studentDao.updateById(entity);
@@ -65,6 +66,15 @@ public class StudentService {
 
     public IPage<Student> findList(Student student, Page page) {
         QueryWrapper<StudentEntity> queryWrapper = new QueryWrapper<>();
+        if(StringUtils.hasLength(student.getStuName())){
+            queryWrapper.like("stu_name",student.getStuName());
+        }
+        if(StringUtils.hasLength(student.getStuNumber())){
+            queryWrapper.like("stu_number",student.getStuNumber());
+        }
+        if(student.getStatus() != null){
+            queryWrapper.eq("stu_status",student.getStatus());
+        }
         IPage selectPage = studentDao.selectPage(page, queryWrapper);
         List records = selectPage.getRecords();
         List models = StudentMapper.INSTANCE.fromEntities(records);

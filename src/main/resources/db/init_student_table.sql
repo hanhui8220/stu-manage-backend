@@ -35,6 +35,7 @@ CREATE TABLE `stu_info` (
     `stu_faculty` varchar(24) DEFAULT NULL COMMENT '学生院系',
     `stu_major` varchar(24) DEFAULT NULL COMMENT '学生专业',
     `stu_class` varchar(12) DEFAULT NULL COMMENT '学生班级',
+    `stu_status` int(1) DEFAULT NULL COMMENT '学生状态',
     `remarks` varchar(255) DEFAULT NULL COMMENT '备注',
     `createTime` datetime DEFAULT NULL COMMENT '创建时间',
     PRIMARY KEY (`stu_id`)

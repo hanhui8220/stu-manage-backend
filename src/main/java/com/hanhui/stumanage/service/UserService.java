@@ -12,6 +12,7 @@ import com.hanhui.stumanage.mapper.UserMapper;
 import com.hanhui.stumanage.model.User;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -59,10 +60,10 @@ public class UserService  {
 
     public IPage<User> findList(User user, Page page) {
         QueryWrapper<UserEntity> queryWrapper = new QueryWrapper<>();
-        if(user.getUserCode() != null){
+        if(StringUtils.hasLength(user.getUserCode())){
             queryWrapper.like("user_code",user.getUserCode());
         }
-        if(user.getUserName() != null){
+        if(StringUtils.hasLength(user.getUserName())){
             queryWrapper.like("user_name",user.getUserName());
         }
         if(user.getStatus() != null){
