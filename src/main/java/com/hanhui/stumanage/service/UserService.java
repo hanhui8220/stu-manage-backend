@@ -86,6 +86,13 @@ public class UserService  {
 
     public User updateById(User user) {
         UserEntity entity = UserMapper.INSTANCE.fromModel(user);
+        QueryWrapper<UserEntity> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("user_code",user.getUserCode());
+        List<UserEntity> selectList = userDao.selectList(queryWrapper);
+        if(selectList.size() > 1 ){
+            // 用户已存在
+            throw GenricException.generateUserCodeExitsError();
+        }
         int updateById = userDao.updateById(entity);
         return user;
     }

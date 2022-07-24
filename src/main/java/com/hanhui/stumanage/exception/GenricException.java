@@ -28,4 +28,9 @@ public class GenricException extends RuntimeException {
         return new GenricException(ErrorCodeEnum.USER_INVALID.getCode()
                 ,ErrorCodeEnum.USER_INVALID.getText());
     }
+
+    public static GenricException generateStuNumberErrot(){
+        return new GenricException(ErrorCodeEnum.STU_NUMBER_EXIST.getCode()
+                ,ErrorCodeEnum.STU_NUMBER_EXIST.getText());
+    }
 }

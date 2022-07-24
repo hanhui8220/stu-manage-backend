@@ -7,7 +7,8 @@ import lombok.Getter;
 public enum  ErrorCodeEnum {
 
     USER_CODE_EXIST("T_USER_CODE_EXIST","用户账号已存在"),
-    USER_INVALID("T_USER_INVALID","用户名或密码不正确");
+    USER_INVALID("T_USER_INVALID","用户名或密码不正确"),
+    STU_NUMBER_EXIST("T_STU_NUMBER_EXIST","学生学号已存在");
 
     private String code;
 
