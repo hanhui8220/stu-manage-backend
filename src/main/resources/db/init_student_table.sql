@@ -1,19 +1,3 @@
-/*
- Navicat Premium Data Transfer
-
- Source Server         : mysql
- Source Server Type    : MySQL
- Source Server Version : 80016
- Source Host           : localhost:3306
- Source Schema         : stu
-
- Target Server Type    : MySQL
- Target Server Version : 80016
- File Encoding         : 65001
-
- Date: 24/01/2021 21:19:45
-*/
-
 
 DROP TABLE IF EXISTS `stu_info`;
 

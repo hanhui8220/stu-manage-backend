@@ -1,7 +1,5 @@
 
--- ----------------------------
--- Table structure for sys_user
--- ----------------------------
+
 DROP TABLE IF EXISTS `teacher_info`;
 CREATE TABLE `teacher_info` (
   `teach_id` int(32) NOT NULL AUTO_INCREMENT COMMENT '教师id',

@@ -35,7 +35,12 @@ public class GenricException extends RuntimeException {
     }
 
     public static GenricException generateTeacherCodeError(){
-        return new GenricException(ErrorCodeEnum.STU_NUMBER_EXIST.getCode()
-                ,ErrorCodeEnum.STU_NUMBER_EXIST.getText());
+        return new GenricException(ErrorCodeEnum.TEACHER_CODE_EXIST.getCode()
+                ,ErrorCodeEnum.TEACHER_CODE_EXIST.getText());
+    }
+
+    public static GenricException generateClassNumberError(){
+        return new GenricException(ErrorCodeEnum.CLASS_NUMBER_EXIST.getCode()
+                ,ErrorCodeEnum.CLASS_NUMBER_EXIST.getText());
     }
 }

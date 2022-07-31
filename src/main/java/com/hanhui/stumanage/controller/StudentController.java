@@ -4,7 +4,6 @@ package com.hanhui.stumanage.controller;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.hanhui.stumanage.model.Student;
-import com.hanhui.stumanage.model.User;
 import com.hanhui.stumanage.service.StudentService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

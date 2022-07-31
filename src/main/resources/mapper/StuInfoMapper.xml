@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hanhui.stumanage.dao.StudentDao">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.hanhui.stumanage.model.Student">
+        <id column="stu_id" property="stuId" />
+        <result column="stu_number" property="stuNumber" />
+        <result column="stu_name" property="stuName" />
+        <result column="stu_identity_card" property="stuIdentityCard" />
+        <result column="stu_gender" property="stuGender" />
+        <result column="stu_nation" property="stuNation" />
+        <result column="stu_native_place" property="stuNativePlace" />
+        <result column="stu_phone_number" property="stuPhoneNumber" />
+        <result column="stu_political" property="stuPolitical" />
+        <result column="stu_birth_date" property="stuBirthDate" />
+        <result column="stu_home_address" property="stuHomeAddress" />
+        <result column="stu_emergency_contact" property="stuEmergencyContact" />
+        <result column="stu_emergency_contact_phone" property="stuEmergencyContactPhone" />
+        <result column="stu_grade" property="stuGrade" />
+        <result column="stu_faculty" property="stuFaculty" />
+        <result column="stu_major" property="stuMajor" />
+        <result column="stu_class" property="stuClass" />
+        <result column="remarks" property="remarks" />
+        <result column="createTime" property="createTime" />
+        <result column="stu_status" property="status" />
+    </resultMap>
+
+
+    <select id="findStudendByClassNumber" parameterType="string" resultMap="BaseResultMap">
+        select s.* from  stu_info s
+          where s.stu_number in
+            (
+                select stu_number from  class_x_stu cs
+                    where cs.class_number = #{classNumber}
+            )
+    </select>
+
+</mapper>
