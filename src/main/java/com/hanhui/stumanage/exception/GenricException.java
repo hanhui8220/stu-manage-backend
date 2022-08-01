@@ -43,4 +43,14 @@ public class GenricException extends RuntimeException {
         return new GenricException(ErrorCodeEnum.CLASS_NUMBER_EXIST.getCode()
                 ,ErrorCodeEnum.CLASS_NUMBER_EXIST.getText());
     }
+
+    public static GenricException generateCourseNumberError(){
+        return new GenricException(ErrorCodeEnum.COURSE_NUMBER_EXIST.getCode()
+                ,ErrorCodeEnum.COURSE_NUMBER_EXIST.getText());
+    }
+
+    public static GenricException generateMajorNumberError(){
+        return new GenricException(ErrorCodeEnum.MAJOR_NUMBER_EXIST.getCode()
+                ,ErrorCodeEnum.MAJOR_NUMBER_EXIST.getText());
+    }
 }

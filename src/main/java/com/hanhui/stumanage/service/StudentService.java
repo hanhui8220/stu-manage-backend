@@ -1,12 +1,17 @@
 package com.hanhui.stumanage.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.hanhui.stumanage.dao.CourseStudentDao;
 import com.hanhui.stumanage.dao.StudentDao;
+import com.hanhui.stumanage.entity.CourseStuentRelEntity;
 import com.hanhui.stumanage.entity.StudentEntity;
 import com.hanhui.stumanage.exception.GenricException;
+import com.hanhui.stumanage.mapper.CourseStudenMapper;
 import com.hanhui.stumanage.mapper.StudentMapper;
+import com.hanhui.stumanage.model.CourseStudent;
 import com.hanhui.stumanage.model.Student;
 import com.hanhui.stumanage.model.User;
 import org.springframework.stereotype.Service;
@@ -23,6 +28,9 @@ public class StudentService {
 
     @Resource
     private UserService userService;
+
+    @Resource
+    private CourseStudentDao courseStudentDao;
 
     public Student insert(Student student){
         QueryWrapper<StudentEntity> queryWrapper = new QueryWrapper<>();
@@ -80,5 +88,19 @@ public class StudentService {
         List models = StudentMapper.INSTANCE.fromEntities(records);
         selectPage.setRecords(models);
         return selectPage;
+    }
+
+    public CourseStudent chooseCourse(CourseStudent courseStudent) {
+        // 先删后插
+        UpdateWrapper updateWrapper = new UpdateWrapper<CourseStuentRelEntity>();
+        updateWrapper.eq("course_number",courseStudent.getCourseNumber());
+        updateWrapper.eq("stu_number",courseStudent.getStuNumber());
+        courseStudentDao.delete(updateWrapper);
+
+        CourseStuentRelEntity courseStuentRelEntity = new CourseStuentRelEntity()
+                .setCourseNumber(courseStudent.getCourseNumber()).setStuNumber(courseStudent.getStuNumber());
+        courseStudentDao.insert(courseStuentRelEntity);
+        courseStudent.setId(courseStuentRelEntity.getId());
+        return courseStudent;
     }
 }

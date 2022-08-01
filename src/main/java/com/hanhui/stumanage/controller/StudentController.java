@@ -3,6 +3,7 @@ package com.hanhui.stumanage.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.hanhui.stumanage.model.CourseStudent;
 import com.hanhui.stumanage.model.Student;
 import com.hanhui.stumanage.service.StudentService;
 import org.springframework.http.ResponseEntity;
@@ -39,5 +40,10 @@ public class StudentController {
     public ResponseEntity<Student> updateById( @PathVariable("stuId") Long stuId,@RequestBody Student student){
         student.setStuId(stuId);
         return ResponseEntity.ok(studentService.updateById(student));
+    }
+
+    @PutMapping("/Course/choose")
+    public ResponseEntity<CourseStudent> chooseCourse(@RequestBody CourseStudent courseStudent ){
+        return ResponseEntity.ok(studentService.chooseCourse(courseStudent));
     }
 }
