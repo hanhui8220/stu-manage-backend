@@ -27,6 +27,21 @@
     </resultMap>
 
 
+    <!-- 通用查询映射结果 -->
+    <resultMap id="CourseScoreResultMap" type="com.hanhui.stumanage.model.CourseStudent">
+        <id column="id" property="id" />
+        <result column="course_number" property="courseNumber" />
+        <result column="stu_number" property="stuNumber" />
+        <result column="score" property="score" />
+        <result column="stu_name" property="stuName" />
+        <result column="course_name" property="courseName" />
+    </resultMap>
+
+    <resultMap id="StudentScoreMap" type="com.hanhui.stumanage.model.Student"  extends="BaseResultMap">
+        <association property="courseScore" resultMap="CourseScoreResultMap"></association>
+    </resultMap>
+
+
     <select id="findStudendByClassNumber" parameterType="string" resultMap="BaseResultMap">
         select s.* from  stu_info s
           where s.stu_number in
@@ -35,5 +50,24 @@
                     where cs.class_number = #{classNumber}
             )
     </select>
+
+
+    <select id="findByStuNumberOrStuName" parameterType="com.hanhui.stumanage.model.Student" resultMap="BaseResultMap">
+        select * from  stu_info
+            <where>
+                <if test=" student.status != null and student.status != '' ">
+                    and stu_status  = #{student.status}
+                </if>
+                <if test=" student.stuNumber != null and student.stuNumber != '' ">
+                    and ( stu_number like concat('%',#{student.stuNumber},'%')
+                            or stu_name like concat('%',#{student.stuNumber},'%')
+                    )
+                </if>
+
+            </where>
+
+    </select>
+
+
 
 </mapper>

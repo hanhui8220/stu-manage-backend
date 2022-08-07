@@ -14,11 +14,8 @@ import java.io.Serializable;
 @Setter
 @NoArgsConstructor
 @Accessors(chain = true)
-public class CourseStudent implements Serializable {
+public class ScoreStudent implements Serializable {
 
-    /**
-     * 主键ID
-     */
     private Integer id;
 
     /**
@@ -26,10 +23,31 @@ public class CourseStudent implements Serializable {
      */
     private String courseNumber;
 
+    private String courseName;
+
     /**
      * 学生学号
      */
     private String stuNumber;
 
+    private String stuName;
 
+    /**
+     * 课程分数
+     */
+    private Integer score;
+
+    /**
+     * 学期
+     */
+    private String term;
+
+    /**
+     * 学年
+     */
+    private String year;
+
+    private String stuFaculty;
+
+    private String stuMajor;
 }

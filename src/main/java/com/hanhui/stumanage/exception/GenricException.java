@@ -53,4 +53,24 @@ public class GenricException extends RuntimeException {
         return new GenricException(ErrorCodeEnum.MAJOR_NUMBER_EXIST.getCode()
                 ,ErrorCodeEnum.MAJOR_NUMBER_EXIST.getText());
     }
+
+    public static GenricException generateChooseCourseError(){
+        return new GenricException(ErrorCodeEnum.STU_COURSE_EXIST.getCode()
+                ,ErrorCodeEnum.STU_COURSE_EXIST.getText());
+    }
+
+    public static GenricException generateCourseNotEnoughError(){
+        return new GenricException(ErrorCodeEnum.COURSE_NOT_ENOUGH.getCode()
+                ,ErrorCodeEnum.COURSE_NOT_ENOUGH.getText());
+    }
+
+    public static GenricException generateStudentCourseNotExistError(){
+        return new GenricException(ErrorCodeEnum.STU_COURSE_NOT_EXIST.getCode()
+                ,ErrorCodeEnum.STU_COURSE_NOT_EXIST.getText());
+    }
+
+    public static GenricException generateScoreAlreadyExistError(){
+        return new GenricException(ErrorCodeEnum.SCORE_ALREADY_EXIST.getCode()
+                ,ErrorCodeEnum.SCORE_ALREADY_EXIST.getText());
+    }
 }

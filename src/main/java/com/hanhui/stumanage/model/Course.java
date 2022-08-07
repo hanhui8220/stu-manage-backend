@@ -30,4 +30,10 @@ public class Course implements Serializable {
      * 课程名称
      */
     private String courseName;
+
+    private Integer courseType;
+
+    private Integer courseTotal;
+
+    private Integer courseRemain;
 }

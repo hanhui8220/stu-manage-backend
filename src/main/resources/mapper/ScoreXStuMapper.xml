@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hanhui.stumanage.dao.ScoreStudentDao">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.hanhui.stumanage.model.ScoreStudent">
+        <id column="id" property="id" />
+        <result column="course_number" property="courseNumber" />
+        <result column="stu_number" property="stuNumber" />
+        <result column="score" property="score" />
+        <result column="term" property="term" />
+        <result column="year" property="year" />
+        <result column="stu_name" property="stuName" />
+        <result column="course_name" property="courseName" />
+        <result column="stu_faculty" property="stuFaculty" />
+        <result column="stu_major" property="stuMajor" />
+    </resultMap>
+    
+    
+    <select id="findByPage" parameterType="com.hanhui.stumanage.model.ScoreStudent" resultMap="BaseResultMap">
+        select
+                ss.id,
+                s.stu_name,
+                ss.stu_number,
+                c.course_name,
+                ss.course_number,
+                ss.score,
+                ss.year,
+                ss.term,
+                s.stu_faculty,
+                s.stu_major
+            from  score_x_stu ss
+            left join stu_info s on ss.stu_number = s.stu_number
+            left join course_info c on ss.course_number = c.course_number
+         <where>
+             <if test="params.courseNumber != null and params.courseNumber != '' ">
+                 and ss.course_number like concat('%',#{params.courseNumber},'%')
+             </if>
+             <if test="params.courseName != null and params.courseName != '' ">
+                 and c.course_name like concat('%',#{params.courseName},'%')
+             </if>
+             <if test="params.stuNumber != null and params.stuNumber != '' ">
+                 and ss.stu_number like concat('%',#{params.stuNumber},'%')
+             </if>
+             <if test="params.stuName != null and params.stuName != '' ">
+                 and s.stu_name like concat('%',#{params.stuName},'%')
+             </if>
+         </where>
+
+    </select>
+
+
+    <select id="findSelf" parameterType="com.hanhui.stumanage.model.ScoreStudent" resultMap="BaseResultMap">
+        select
+        ss.id,
+        s.stu_name,
+        ss.stu_number,
+        c.course_name,
+        ss.course_number,
+        ss.score,
+        ss.year,
+        ss.term,
+        s.stu_faculty,
+        s.stu_major
+        from  score_x_stu ss
+        left join stu_info s on ss.stu_number = s.stu_number
+        left join course_info c on ss.course_number = c.course_number
+        <where>
+
+            <if test="params.courseName != null and params.courseName != '' ">
+                and c.course_name like concat('%',#{params.courseName},'%')
+            </if>
+            <if test="params.stuNumber != null and params.stuNumber != '' ">
+                and ss.stu_number = #{params.stuNumber}
+            </if>
+
+            <if test="params.year != null and params.year != '' ">
+                and ss.year = #{params.year}
+            </if>
+
+            <if test="params.term != null and params.term != '' ">
+                and ss.term = #{params.term}
+            </if>
+
+        </where>
+
+    </select>
+
+</mapper>

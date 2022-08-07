@@ -32,6 +32,9 @@ public class StudentService {
     @Resource
     private CourseStudentDao courseStudentDao;
 
+    @Resource
+    private CourseService courseService;
+
     public Student insert(Student student){
         QueryWrapper<StudentEntity> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("stu_number",student.getStuNumber());
@@ -92,15 +95,34 @@ public class StudentService {
 
     public CourseStudent chooseCourse(CourseStudent courseStudent) {
         // 先删后插
-        UpdateWrapper updateWrapper = new UpdateWrapper<CourseStuentRelEntity>();
-        updateWrapper.eq("course_number",courseStudent.getCourseNumber());
-        updateWrapper.eq("stu_number",courseStudent.getStuNumber());
-        courseStudentDao.delete(updateWrapper);
+        QueryWrapper wrapper = new QueryWrapper<CourseStuentRelEntity>();
+        wrapper.eq("course_number",courseStudent.getCourseNumber());
+        wrapper.eq("stu_number",courseStudent.getStuNumber());
+        CourseStuentRelEntity selectOne = courseStudentDao.selectOne(wrapper);
+        if(selectOne != null ){
+            throw GenricException.generateChooseCourseError();
+        }
+        // 判断课程剩余是否可用
+        courseService.decreaseRemain(courseStudent.getCourseNumber());
 
         CourseStuentRelEntity courseStuentRelEntity = new CourseStuentRelEntity()
                 .setCourseNumber(courseStudent.getCourseNumber()).setStuNumber(courseStudent.getStuNumber());
         courseStudentDao.insert(courseStuentRelEntity);
         courseStudent.setId(courseStuentRelEntity.getId());
         return courseStudent;
+    }
+
+    public List<Student> suggest(Student student) {
+        return studentDao.findByStuNumberOrStuName(student);
+    }
+
+    public List<Student> filterStudent(Student student) {
+        QueryWrapper wrapper = new QueryWrapper<StudentEntity>();
+        if(student.getStuNumber() != null ){
+            wrapper.eq("stu_number",student.getStuNumber());
+        }
+        List list = studentDao.selectList(wrapper);
+        List models = StudentMapper.INSTANCE.fromEntities(list);
+        return models;
     }
 }

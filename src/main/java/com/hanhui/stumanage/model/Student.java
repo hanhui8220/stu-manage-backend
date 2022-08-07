@@ -114,4 +114,6 @@ public class Student implements Serializable {
      * 创建时间
      */
     private Date createTime;
+
+    private CourseStudent courseScore;
 }

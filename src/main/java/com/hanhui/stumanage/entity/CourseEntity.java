@@ -46,4 +46,12 @@ public class CourseEntity implements Serializable {
     private String courseName;
 
 
+    @TableField("course_type")
+    private Integer courseType;
+
+    @TableField("course_total")
+    private Integer courseTotal;
+
+    @TableField("course_remain")
+    private Integer courseRemain;
 }

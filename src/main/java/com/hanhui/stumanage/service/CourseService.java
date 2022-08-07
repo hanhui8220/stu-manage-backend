@@ -67,4 +67,25 @@ public class CourseService {
         selectPage.setRecords(models);
         return selectPage;
     }
+
+    // 选修课 可选 人数 -1
+    public Course decreaseRemain(String courseNumber){
+        QueryWrapper<CourseEntity> wrapper = new QueryWrapper<>();
+        wrapper.eq("course_number",courseNumber);
+        CourseEntity courseEntity = courseDao.selectOne(wrapper);
+        if(courseEntity.getCourseType() == 1){
+            //   type = 1 : 如果是选修课 判断剩余人数是否够用
+            if(courseEntity.getCourseRemain() > 0){
+                Integer courseRemain = courseEntity.getCourseRemain();
+                courseRemain--;
+                courseEntity.setCourseRemain(courseRemain);
+                courseDao.updateById(courseEntity);
+            }else{
+                throw GenricException.generateCourseNotEnoughError();
+            }
+        }
+        return CourseMapper.INSTANCE.fromEntity(courseEntity);
+    }
+
+
 }

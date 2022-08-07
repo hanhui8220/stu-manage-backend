@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @RestController
 @RequestMapping("/Student")
@@ -45,5 +46,17 @@ public class StudentController {
     @PutMapping("/Course/choose")
     public ResponseEntity<CourseStudent> chooseCourse(@RequestBody CourseStudent courseStudent ){
         return ResponseEntity.ok(studentService.chooseCourse(courseStudent));
+    }
+
+
+    @GetMapping("/suggest")
+    public ResponseEntity<List<Student>> suggest(Student student){
+        return ResponseEntity.ok(studentService.suggest(student));
+    }
+
+
+    @GetMapping("/filter")
+    public ResponseEntity<List<Student>> filter(Student student){
+        return ResponseEntity.ok(studentService.filterStudent(student));
     }
 }

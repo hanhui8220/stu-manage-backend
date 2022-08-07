@@ -7,7 +7,6 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 
@@ -17,14 +16,14 @@ import java.io.Serializable;
  * </p>
  *
  * @author hanhui
- * @since 2022-08-01
+ * @since 2022-08-03
  */
-@Accessors(chain = true)
+
 @Data
 @Getter
 @Setter
-@TableName("course_x_stu")
-public class CourseStuentRelEntity implements Serializable {
+@TableName("score_x_stu")
+public class ScoreStudentEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -45,6 +44,24 @@ public class CourseStuentRelEntity implements Serializable {
      */
     @TableField("stu_number")
     private String stuNumber;
+
+    /**
+     * 课程分数
+     */
+    @TableField("score")
+    private Integer score;
+
+    /**
+     * 学期
+     */
+    @TableField("term")
+    private String term;
+
+    /**
+     * 学年
+     */
+    @TableField("year")
+    private String year;
 
 
 }
