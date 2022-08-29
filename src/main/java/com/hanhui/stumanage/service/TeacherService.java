@@ -4,6 +4,9 @@ package com.hanhui.stumanage.service;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.hanhui.stumanage.cache.CacheEvict;
+import com.hanhui.stumanage.cache.RedisCache;
+import com.hanhui.stumanage.constant.CacheConst;
 import com.hanhui.stumanage.dao.TeacherDao;
 import com.hanhui.stumanage.entity.StudentEntity;
 import com.hanhui.stumanage.entity.TeacherEntity;
@@ -48,10 +51,12 @@ public class TeacherService {
         return teacher;
     }
 
-    public Teacher findById(Long stuId) {
-        return TeacherMapper.INSTANCE.fromEntity(teacherDao.selectById(stuId));
+    @RedisCache(key = "#teachId",name = CacheConst.TEACHER)
+    public Teacher findById(Long teachId) {
+        return TeacherMapper.INSTANCE.fromEntity(teacherDao.selectById(teachId));
     }
 
+    @CacheEvict(key = "#teacher.getTeachId()",name = CacheConst.TEACHER)
     public Teacher updateById(Teacher teacher) {
         TeacherEntity entity = TeacherMapper.INSTANCE.fromModel(teacher);
 

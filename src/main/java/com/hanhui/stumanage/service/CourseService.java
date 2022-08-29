@@ -4,6 +4,9 @@ package com.hanhui.stumanage.service;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.hanhui.stumanage.cache.CacheEvict;
+import com.hanhui.stumanage.cache.RedisCache;
+import com.hanhui.stumanage.constant.CacheConst;
 import com.hanhui.stumanage.dao.CourseDao;
 import com.hanhui.stumanage.entity.CourseEntity;
 import com.hanhui.stumanage.exception.GenricException;
@@ -35,10 +38,12 @@ public class CourseService {
         return course;
     }
 
+    @RedisCache(key = "#courseId",name = CacheConst.COURSE)
     public Course findById(Integer courseId){
         return CourseMapper.INSTANCE.fromEntity(courseDao.selectById(courseId));
     }
 
+    @CacheEvict(key = "#course.getCourseId()",name = CacheConst.COURSE)
     public Course updateById(Course course){
         QueryWrapper<CourseEntity> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("course_number",course.getCourseNumber());

@@ -4,6 +4,9 @@ package com.hanhui.stumanage.service;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.hanhui.stumanage.cache.CacheEvict;
+import com.hanhui.stumanage.cache.RedisCache;
+import com.hanhui.stumanage.constant.CacheConst;
 import com.hanhui.stumanage.constant.UserStatus;
 import com.hanhui.stumanage.dao.UserDao;
 import com.hanhui.stumanage.entity.UserEntity;
@@ -11,6 +14,7 @@ import com.hanhui.stumanage.exception.GenricException;
 import com.hanhui.stumanage.mapper.UserMapper;
 import com.hanhui.stumanage.model.User;
 import org.springframework.beans.BeanUtils;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -23,6 +27,9 @@ public class UserService  {
     @Resource
     private UserDao userDao;
 
+    @Lazy
+    @Resource
+    private UserService selfService;
 
     public User findUser(String usercode, String passWord) {
         QueryWrapper<UserEntity> queryWrapper = new QueryWrapper<>();
@@ -76,15 +83,25 @@ public class UserService  {
         return selectPage;
     }
 
-    public Integer deleteByIds(List<String> userIds) {
-        int deleteBatchIds = userDao.deleteBatchIds(userIds);
-        return deleteBatchIds;
+    public Integer deleteByIds(List<Long> userIds) {
+        for (Long userId : userIds) {
+            selfService.deleteById(userId);
+        }
+        return userIds.size();
     }
 
+    @CacheEvict(key = "#userId",name = CacheConst.USER)
+    public Integer deleteById(Long userId) {
+        int deleteById = userDao.deleteById(userId);
+        return deleteById;
+    }
+
+    @RedisCache(key = "#userId",name = CacheConst.USER)
     public User findById(Long userId) {
         return UserMapper.INSTANCE.fromEntity(userDao.selectById(userId));
     }
 
+    @CacheEvict(key = "#user.getUserId()",name = CacheConst.USER)
     public User updateById(User user) {
         UserEntity entity = UserMapper.INSTANCE.fromModel(user);
         QueryWrapper<UserEntity> queryWrapper = new QueryWrapper<>();

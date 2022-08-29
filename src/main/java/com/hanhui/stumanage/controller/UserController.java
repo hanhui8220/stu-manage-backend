@@ -52,7 +52,7 @@ public class UserController {
 
 
     @DeleteMapping()
-    public ResponseEntity<Integer> deleteByIds(@RequestBody List<String> userIds){
+    public ResponseEntity<Integer> deleteByIds(@RequestBody List<Long> userIds){
         return ResponseEntity.ok(userService.deleteByIds(userIds));
     }
 

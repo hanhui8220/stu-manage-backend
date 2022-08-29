@@ -7,6 +7,9 @@ spring:
     url: jdbc:mysql://localhost:3306/db_stu_man_sys?zeroDateTimeBehavior=convertToNull&characterEncoding=utf8&useSSL=false&serverTimezone=UTC
     username: root
     password: root
+  redis:
+    host: localhost
+    port: 6379
 
 mybatis-plus:
   mapper-locations: classpath*:mapper/*.xml

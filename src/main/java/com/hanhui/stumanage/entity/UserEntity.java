@@ -40,5 +40,6 @@ public class UserEntity {
     @TableField("user_status")
     private Integer status;
 
-
+    @TableField("user_role")
+    private String userRole;
 }

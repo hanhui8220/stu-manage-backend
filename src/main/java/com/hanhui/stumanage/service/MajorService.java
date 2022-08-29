@@ -4,6 +4,9 @@ package com.hanhui.stumanage.service;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.hanhui.stumanage.cache.CacheEvict;
+import com.hanhui.stumanage.cache.RedisCache;
+import com.hanhui.stumanage.constant.CacheConst;
 import com.hanhui.stumanage.dao.MajorDao;
 import com.hanhui.stumanage.entity.CourseEntity;
 import com.hanhui.stumanage.entity.MajorEntity;
@@ -37,10 +40,12 @@ public class MajorService {
         return major;
     }
 
+    @RedisCache(key = "#majorId",name = CacheConst.MAJOR)
     public Major findById(Integer majorId){
         return MajorMapper.INSTANCE.fromEntity(majorDao.selectById(majorId));
     }
 
+    @CacheEvict(key = "#major.getMajorId()",name = CacheConst.MAJOR)
     public Major updateById(Major major){
         QueryWrapper<MajorEntity> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("major_number",major.getMajorNumber());

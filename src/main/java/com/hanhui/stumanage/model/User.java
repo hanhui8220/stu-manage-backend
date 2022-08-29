@@ -29,4 +29,6 @@ public class User implements Serializable {
 	private String passWord;
 
 	private Integer status;
+
+	private String userRole;
 }
