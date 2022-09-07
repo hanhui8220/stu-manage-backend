@@ -24,7 +24,7 @@ DROP TABLE IF EXISTS `course_x_stu`;
 CREATE TABLE `course_x_stu` (
   `id` int(32) NOT NULL AUTO_INCREMENT COMMENT '主键ID',
   `course_number` varchar(16) NOT NULL  COMMENT '课程编号',
-  `stu_number` varchar(16) NOT NULL  COMMENT '学生学号'
+  `stu_number` varchar(16) NOT NULL  COMMENT '学生学号',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 

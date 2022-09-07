@@ -9,7 +9,7 @@ CREATE TABLE `stu_info` (
     `stu_gender` varchar(12) DEFAULT NULL COMMENT '性别',
     `stu_nation` varchar(12) DEFAULT NULL COMMENT '民族',
     `stu_native_place` varchar(255) DEFAULT NULL COMMENT '籍贯',
-    `stu_phone_number` varchar(11) DEFAULT NULL COMMENT '学生手机号码',
+    `stu_phone_number` varchar(20) DEFAULT NULL COMMENT '学生手机号码',
     `stu_political` varchar(20) DEFAULT NULL COMMENT '政治面貌',
     `stu_birth_date` date DEFAULT NULL COMMENT '出生日期',
     `stu_home_address` varchar(255) DEFAULT NULL COMMENT '家庭住址',

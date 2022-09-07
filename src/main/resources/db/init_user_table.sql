@@ -13,13 +13,4 @@ CREATE TABLE `sys_user` (
   PRIMARY KEY (`user_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
--- ----------------------------
--- Records of sys_user
--- ----------------------------
-BEGIN;
-INSERT INTO `sys_user` VALUES (1, 'admin', '王二', '123', 1);
-INSERT INTO `sys_user` VALUES (2, 'admin01', '张三', '123', 1);
-INSERT INTO `sys_user` VALUES (3, 'admin02', '李四', '123', 1);
-COMMIT;
 
-SET FOREIGN_KEY_CHECKS = 1;

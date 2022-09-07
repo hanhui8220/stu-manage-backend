@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.hanhui.stumanage.cache.CacheEvict;
 import com.hanhui.stumanage.cache.RedisCache;
 import com.hanhui.stumanage.constant.CacheConst;
+import com.hanhui.stumanage.constant.UserRole;
 import com.hanhui.stumanage.dao.CourseStudentDao;
 import com.hanhui.stumanage.dao.StudentDao;
 import com.hanhui.stumanage.entity.CourseStuentRelEntity;
@@ -52,6 +53,7 @@ public class StudentService {
                 .setUserCode(student.getStuNumber())
                 .setUserName(student.getStuName())
                 .setPassWord("123")
+                .setUserRole(UserRole.STUDENT)
                 .setStatus(1);
         userService.inserUser(user);
         student.setStuId(studentEntity.getStuId());

@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.hanhui.stumanage.cache.CacheEvict;
 import com.hanhui.stumanage.cache.RedisCache;
 import com.hanhui.stumanage.constant.CacheConst;
+import com.hanhui.stumanage.constant.UserRole;
 import com.hanhui.stumanage.dao.TeacherDao;
 import com.hanhui.stumanage.entity.StudentEntity;
 import com.hanhui.stumanage.entity.TeacherEntity;
@@ -45,6 +46,7 @@ public class TeacherService {
                 .setUserCode(teacher.getTeachCode())
                 .setUserName(teacher.getTeachName())
                 .setPassWord("123")
+                .setUserRole(UserRole.TEACHER)
                 .setStatus(1);
         userService.inserUser(user);
         teacher.setTeachId(teacherEntity.getTeachId());
