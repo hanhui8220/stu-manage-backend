@@ -3,6 +3,7 @@ package com.hanhui.stumanage.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.hanhui.stumanage.constant.UserRole;
 import com.hanhui.stumanage.model.User;
 import com.hanhui.stumanage.service.UserService;
 import org.springframework.http.ResponseEntity;
@@ -41,6 +42,7 @@ public class UserController {
      */
     @PostMapping()
     public ResponseEntity<User> register(@RequestBody User user){
+        user.setUserRole(UserRole.SYS_ADMIN);
         return ResponseEntity.ok(userService.inserUser(user));
     }
 

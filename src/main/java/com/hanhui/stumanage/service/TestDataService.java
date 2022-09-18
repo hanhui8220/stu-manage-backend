@@ -59,10 +59,23 @@ public class TestDataService {
 //        initUser();
 //        initMajor();
 //        initCourse();
-        initScore();
+//        initScore();
+
+//        updateStuGrade();
         return true;
     }
 
+
+    void updateStuGrade(){
+        String [] gradeArr = new String[]{"2019","2020","2021","2022"};
+        List<StudentEntity> studentEntities = studentDao.selectList(new QueryWrapper<StudentEntity>());
+        for (StudentEntity entity : studentEntities) {
+            int index = RandomNameUtil.getRandomNum(3);
+            String grade = gradeArr[index] +"级";
+            entity.setStuGrade(grade);
+            studentDao.updateById(entity);
+        }
+    }
 
     void initScore(){
 
