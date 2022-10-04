@@ -56,12 +56,11 @@ public class TestDataService {
     @Transactional(rollbackFor=Exception.class)
     public Boolean initTestData(){
 
-//        initUser();
-//        initMajor();
-//        initCourse();
-//        initScore();
-
-//        updateStuGrade();
+        initUser();
+        initMajor();
+        initCourse();
+        initScore();
+        updateStuGrade();
         return true;
     }
 

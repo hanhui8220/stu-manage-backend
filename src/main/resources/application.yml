@@ -10,6 +10,14 @@ spring:
   redis:
     host: localhost
     port: 6379
+  flyway:
+    locations: classpath:/db/migration/
+    enabled: true
+    url: jdbc:mysql://localhost:3306/db_stu_man_sys?zeroDateTimeBehavior=convertToNull&characterEncoding=utf8&useSSL=false&serverTimezone=UTC
+    user: root
+    password: root
+    encoding: utf-8
+
 
 mybatis-plus:
   mapper-locations: classpath*:mapper/*.xml
