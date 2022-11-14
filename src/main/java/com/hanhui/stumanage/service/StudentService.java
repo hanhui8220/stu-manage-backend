@@ -82,20 +82,22 @@ public class StudentService {
     }
 
     public IPage<Student> findList(Student student, Page page) {
-        QueryWrapper<StudentEntity> queryWrapper = new QueryWrapper<>();
-        if(StringUtils.hasLength(student.getStuName())){
-            queryWrapper.like("stu_name",student.getStuName());
-        }
-        if(StringUtils.hasLength(student.getStuNumber())){
-            queryWrapper.like("stu_number",student.getStuNumber());
-        }
-        if(student.getStatus() != null){
-            queryWrapper.eq("stu_status",student.getStatus());
-        }
-        IPage selectPage = studentDao.selectPage(page, queryWrapper);
-        List records = selectPage.getRecords();
-        List models = StudentMapper.INSTANCE.fromEntities(records);
-        selectPage.setRecords(models);
+//        QueryWrapper<StudentEntity> queryWrapper = new QueryWrapper<>();
+//        if(StringUtils.hasLength(student.getStuName())){
+//            queryWrapper.like("stu_name",student.getStuName());
+//        }
+//        if(StringUtils.hasLength(student.getStuNumber())){
+//            queryWrapper.like("stu_number",student.getStuNumber());
+//        }
+//        if(student.getStatus() != null){
+//            queryWrapper.eq("stu_status",student.getStatus());
+//        }
+//        IPage selectPage = studentDao.selectPage(page, queryWrapper);
+//        List records = selectPage.getRecords();
+//        List models = StudentMapper.INSTANCE.fromEntities(records);
+//        selectPage.setRecords(models);
+
+        IPage<Student> selectPage = studentDao.findStudentByPage(page, student);
         return selectPage;
     }
 

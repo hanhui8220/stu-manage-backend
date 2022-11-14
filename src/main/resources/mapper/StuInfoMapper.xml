@@ -47,7 +47,7 @@
           where s.stu_number in
             (
                 select stu_number from  class_x_stu cs
-                    where cs.class_number = #{classNumber}
+                    where cs.class_number = #{clas                                                             sNumber}
             )
     </select>
 
@@ -55,7 +55,7 @@
     <select id="findByStuNumberOrStuName" parameterType="com.hanhui.stumanage.model.Student" resultMap="BaseResultMap">
         select * from  stu_info
             <where>
-                <if test=" student.status != null and student.status != '' ">
+                <if test=" student.status != null  ">
                     and stu_status  = #{student.status}
                 </if>
                 <if test=" student.stuNumber != null and student.stuNumber != '' ">
@@ -65,6 +65,49 @@
                 </if>
 
             </where>
+
+    </select>
+
+
+    <select id="findStudentByPage" parameterType="com.hanhui.stumanage.model.Student" resultMap="BaseResultMap">
+        select
+            s.stu_id,
+            s.stu_number,
+            s.stu_name,
+            s.stu_identity_card,
+            s.stu_gender,
+            s.stu_nation,
+            s.stu_native_place,
+            s.stu_phone_number,
+            s.stu_political,
+            s.stu_birth_date,
+            s.stu_home_address,
+            s.stu_emergency_contact,
+            s.stu_emergency_contact_phone,
+            s.stu_grade,
+            s.stu_faculty,
+            m.major_name as stu_major,
+            c.class_name as stu_class,
+            s.remarks,
+            s.createTime,
+            s.stu_status
+        from  stu_info s
+         left join class_info c on s.stu_class = c.class_number
+         left join major_info m on s.stu_major = m.major_number
+        <where>
+            <if test=" student.status != null  ">
+                and s.stu_status  = #{student.status}
+            </if>
+            <if test=" student.stuNumber != null and student.stuNumber != '' ">
+                and  s.stu_number like concat('%',#{student.stuNumber},'%')
+
+            </if>
+            <if test=" student.stuName != null and student.stuName != '' ">
+                and  s.stu_name like concat('%',#{student.stuName},'%')
+            </if>
+
+
+        </where>
 
     </select>
 
